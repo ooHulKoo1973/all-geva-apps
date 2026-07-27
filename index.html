@@ -100,10 +100,16 @@
     font-size: 0.8rem;
     text-align: center;
   }
-  #music-toggle {
+  .music-tray {
     position: fixed;
     bottom: 20px;
     left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 10;
+  }
+  .music-toggle {
     width: 52px;
     height: 52px;
     border-radius: 50%;
@@ -116,9 +122,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 10;
   }
-  #music-toggle.playing {
+  .music-toggle.playing {
     animation: pulse 1.6s ease-in-out infinite;
   }
   @keyframes pulse {
@@ -177,57 +182,73 @@
   עודכן לאחרונה: 27.07.2026 &middot; all-geva-apps
 </footer>
 
-<button id="music-toggle" title="שיר המכביה - נעמי שמר">🎵</button>
-<div id="yt-player" style="position:absolute; width:0; height:0; overflow:hidden;"></div>
+<div class="music-tray">
+  <button class="music-toggle" data-video-id="N4QGMJR3Qqo" title="שיר המכביה - נעמי שמר">🎵</button>
+  <button class="music-toggle" data-video-id="k0Uzs7gDVEI" title="מבט ספורט - הפתיח המיתולוגי">⚽</button>
+</div>
+<div id="yt-players" style="position:absolute; width:0; height:0; overflow:hidden;"></div>
 
 <script>
-  var ytPlayer;
-  var ytReady = false;
-  var wantsPlay = false;
-
   var tag = document.createElement('script');
   tag.src = "https://www.youtube.com/iframe_api";
   document.body.appendChild(tag);
 
+  var tracks = [];
+
   function onYouTubeIframeAPIReady() {
-    ytPlayer = new YT.Player('yt-player', {
-      height: '0',
-      width: '0',
-      videoId: 'N4QGMJR3Qqo',
-      playerVars: {
-        autoplay: 0,
-        controls: 0,
-        loop: 1,
-        playlist: 'N4QGMJR3Qqo'
-      },
-      events: {
-        onReady: function () {
-          ytReady = true;
-          if (wantsPlay) ytPlayer.playVideo();
+    var buttons = document.querySelectorAll('.music-toggle');
+    buttons.forEach(function (btn, i) {
+      var videoId = btn.dataset.videoId;
+      var mount = document.createElement('div');
+      mount.id = 'yt-player-' + i;
+      document.getElementById('yt-players').appendChild(mount);
+
+      var track = { btn: btn, player: null, ready: false, wantsPlay: false };
+      tracks.push(track);
+
+      track.player = new YT.Player(mount.id, {
+        height: '0',
+        width: '0',
+        videoId: videoId,
+        playerVars: {
+          autoplay: 0,
+          controls: 0,
+          loop: 1,
+          playlist: videoId
+        },
+        events: {
+          onReady: function () {
+            track.ready = true;
+            if (track.wantsPlay) track.player.playVideo();
+          }
         }
-      }
+      });
+
+      btn.addEventListener('click', function () {
+        tracks.forEach(function (other) {
+          if (other !== track) {
+            other.btn.classList.remove('playing');
+            other.wantsPlay = false;
+            if (other.ready) other.player.pauseVideo();
+          }
+        });
+
+        if (!track.ready) {
+          track.wantsPlay = true;
+          btn.classList.add('playing');
+          return;
+        }
+        var state = track.player.getPlayerState();
+        if (state === 1) {
+          track.player.pauseVideo();
+          btn.classList.remove('playing');
+        } else {
+          track.player.playVideo();
+          btn.classList.add('playing');
+        }
+      });
     });
   }
-
-  var btn = document.getElementById('music-toggle');
-  btn.addEventListener('click', function () {
-    if (!ytReady) {
-      wantsPlay = true;
-      btn.classList.add('playing');
-      btn.textContent = '⏸️';
-      return;
-    }
-    var state = ytPlayer.getPlayerState();
-    if (state === 1) {
-      ytPlayer.pauseVideo();
-      btn.classList.remove('playing');
-      btn.textContent = '🎵';
-    } else {
-      ytPlayer.playVideo();
-      btn.classList.add('playing');
-      btn.textContent = '⏸️';
-    }
-  });
 </script>
 
 </body>
