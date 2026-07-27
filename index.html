@@ -100,6 +100,31 @@
     font-size: 0.8rem;
     text-align: center;
   }
+  #music-toggle {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--card-bg);
+    color: var(--text);
+    font-size: 1.4rem;
+    box-shadow: 0 2px 10px var(--shadow);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+  }
+  #music-toggle.playing {
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 2px 10px var(--shadow); }
+    50% { box-shadow: 0 2px 18px var(--accent); }
+  }
 </style>
 </head>
 <body>
@@ -151,6 +176,59 @@
 <footer>
   עודכן לאחרונה: 27.07.2026 &middot; all-geva-apps
 </footer>
+
+<button id="music-toggle" title="שיר המכביה - נעמי שמר">🎵</button>
+<div id="yt-player" style="position:absolute; width:0; height:0; overflow:hidden;"></div>
+
+<script>
+  var ytPlayer;
+  var ytReady = false;
+  var wantsPlay = false;
+
+  var tag = document.createElement('script');
+  tag.src = "https://www.youtube.com/iframe_api";
+  document.body.appendChild(tag);
+
+  function onYouTubeIframeAPIReady() {
+    ytPlayer = new YT.Player('yt-player', {
+      height: '0',
+      width: '0',
+      videoId: 'N4QGMJR3Qqo',
+      playerVars: {
+        autoplay: 0,
+        controls: 0,
+        loop: 1,
+        playlist: 'N4QGMJR3Qqo'
+      },
+      events: {
+        onReady: function () {
+          ytReady = true;
+          if (wantsPlay) ytPlayer.playVideo();
+        }
+      }
+    });
+  }
+
+  var btn = document.getElementById('music-toggle');
+  btn.addEventListener('click', function () {
+    if (!ytReady) {
+      wantsPlay = true;
+      btn.classList.add('playing');
+      btn.textContent = '⏸️';
+      return;
+    }
+    var state = ytPlayer.getPlayerState();
+    if (state === 1) {
+      ytPlayer.pauseVideo();
+      btn.classList.remove('playing');
+      btn.textContent = '🎵';
+    } else {
+      ytPlayer.playVideo();
+      btn.classList.add('playing');
+      btn.textContent = '⏸️';
+    }
+  });
+</script>
 
 </body>
 </html>
