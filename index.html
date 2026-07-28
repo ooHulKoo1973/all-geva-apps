@@ -213,14 +213,18 @@
         videoId: videoId,
         playerVars: {
           autoplay: 0,
-          controls: 0,
-          loop: 1,
-          playlist: videoId
+          controls: 0
         },
         events: {
           onReady: function () {
             track.ready = true;
             if (track.wantsPlay) track.player.playVideo();
+          },
+          onStateChange: function (e) {
+            if (e.data === YT.PlayerState.ENDED) {
+              btn.classList.remove('playing');
+              track.player.seekTo(0, true);
+            }
           }
         }
       });
@@ -230,7 +234,10 @@
           if (other !== track) {
             other.btn.classList.remove('playing');
             other.wantsPlay = false;
-            if (other.ready) other.player.pauseVideo();
+            if (other.ready) {
+              other.player.pauseVideo();
+              other.player.seekTo(0, true);
+            }
           }
         });
 
