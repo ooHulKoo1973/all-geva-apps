@@ -282,7 +282,7 @@
 
 <script>
   (function () {
-    var STORAGE_KEY = 'geva-apps-order';
+    var STORAGE_KEY = 'geva-apps-order-v2'; // v2: bumped when the calendar+tasks cards merged into one, so old saved orders (with stale keys) don't push the new hero card to the bottom
     var grid = document.getElementById('appsGrid');
     var cards = Array.prototype.slice.call(grid.querySelectorAll('.card'));
 
