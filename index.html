@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>כל האפליקציות של גבע</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23E7A752'/%3E%3Cstop offset='1' stop-color='%23C2573C'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='20' cy='20' r='19' fill='url(%23g)' stroke='%23fff' stroke-width='1.5'/%3E%3Ctext x='20' y='28' font-family='Arial,sans-serif' font-size='21' font-weight='800' fill='%23fff' text-anchor='middle'%3E%D7%92%3C/text%3E%3C/svg%3E">
 <style>
   :root {
     --bg: #f4f5f7;
@@ -84,6 +85,24 @@
     outline: 2px dashed var(--ac, var(--accent));
     outline-offset: -2px;
   }
+  .family-badge {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #E7A752 0%, #C2573C 100%);
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.25);
+    border: 1.5px solid rgba(255,255,255,0.6);
+  }
+  .card-hero .family-badge { top: 16px; left: 16px; }
   .card .icon {
     font-size: 1.5rem;
     margin-bottom: 4px;
@@ -225,6 +244,7 @@
 <div class="grid" id="appsGrid">
 
   <div class="card card-hero" data-key="family-hub" data-c="hub">
+    <div class="family-badge" title="אפליקציית משפחת גבע">ג</div>
     <div class="icon">📅</div>
     <div class="hero-body">
       <div class="title">היומן והמשימות של גבע</div>
@@ -237,6 +257,7 @@
   </div>
 
   <a class="card" data-key="home-dashboard" data-c="amber" href="https://new-gevahome-dashboard.netlify.app" target="_blank" rel="noopener">
+    <div class="family-badge" title="אפליקציית משפחת גבע">ג</div>
     <div class="icon">🏡</div>
     <div class="title">הבית החדש של עדי וליאור</div>
     <div class="desc">דשבורד ניהול לבית החדש — מסמכים, פרויקטים ומידע שימושי.</div>
@@ -244,6 +265,7 @@
   </a>
 
   <a class="card" data-key="osherad" data-c="purple" href="https://osherad.netlify.app" target="_blank" rel="noopener">
+    <div class="family-badge" title="אפליקציית משפחת גבע">ג</div>
     <div class="icon">🛒</div>
     <div class="title">רשימת קניות חכמה – אושר עד</div>
     <div class="desc">רשימת קניות חכמה ונוחה לניהול משותף של הקניות.</div>
@@ -251,6 +273,7 @@
   </a>
 
   <a class="card" data-key="almog-height" data-c="teal" href="https://almog-height.netlify.app" target="_blank" rel="noopener">
+    <div class="family-badge" title="אפליקציית משפחת גבע">ג</div>
     <div class="icon">📏</div>
     <div class="title">גובה ומשקל אלמוג</div>
     <div class="desc">מעקב אחרי גובה ומשקל אלמוג לאורך זמן, מול עקומות אחוזונים ארציות.</div>
@@ -258,6 +281,7 @@
   </a>
 
   <a class="card" data-key="almog-summer" data-c="yellow" href="https://almogsummer2026.netlify.app" target="_blank" rel="noopener">
+    <div class="family-badge" title="אפליקציית משפחת גבע">ג</div>
     <div class="icon">☀️</div>
     <div class="title">משחק הקיץ הגדול 2026</div>
     <div class="desc">משחק סקרנות לחופש הגדול — שאלה יומית, חקירה ופרסים לאלמוג.</div>
@@ -265,6 +289,7 @@
   </a>
 
   <a class="card" data-key="recipes" data-c="coral" href="https://geva-recipes.netlify.app" target="_blank" rel="noopener">
+    <div class="family-badge" title="אפליקציית משפחת גבע">ג</div>
     <div class="icon">📖</div>
     <div class="title">ספר המתכונים של גבע</div>
     <div class="desc">כל מתכוני המשפחה במקום אחד, מסודרים לפי קטגוריות — עם הוספה מתמונה, מקובץ Word, או ידנית.</div>
@@ -272,6 +297,7 @@
   </a>
 
   <a class="card" data-key="eilat2026" data-c="sea" href="https://eilat2026.netlify.app" target="_blank" rel="noopener">
+    <div class="family-badge" title="אפליקציית משפחת גבע">ג</div>
     <div class="icon">🌴</div>
     <div class="title">אילת 2026</div>
     <div class="desc">תכנון וארגון הטיול המשפחתי לאילת — ציוד, משימות וקניות לפי נושא.</div>
