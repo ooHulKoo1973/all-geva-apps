@@ -87,8 +87,8 @@
   }
   .family-badge {
     position: absolute;
-    top: 14px;
-    left: 14px;
+    top: -9px;
+    left: -9px;
     width: 26px;
     height: 26px;
     border-radius: 50%;
@@ -99,15 +99,22 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.25);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.35);
     border: 1.5px solid rgba(255,255,255,0.6);
+    z-index: 1;
   }
-  .card-hero .family-badge { top: 16px; left: 16px; }
+  .card-hero .family-badge { top: -9px; left: -9px; }
+  .card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+  }
   .card .icon {
     font-size: 1.5rem;
-    margin-bottom: 4px;
     width: 44px;
     height: 44px;
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -115,6 +122,63 @@
     background: var(--tint, var(--card-bg));
     color: var(--ac, var(--accent));
   }
+  .preview {
+    position: relative;
+    flex: 1;
+    height: 56px;
+    min-width: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--tint, var(--card-bg));
+    border: 1px solid var(--border);
+  }
+  .preview .bar {
+    position: absolute;
+    top: 0; right: 0; left: 0;
+    height: 13px;
+    background: rgba(0,0,0,0.06);
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    padding: 0 7px;
+  }
+  @media (prefers-color-scheme: dark) {
+    .preview .bar { background: rgba(255,255,255,0.06); }
+  }
+  .preview .dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--ac, var(--accent));
+    opacity: 0.55;
+  }
+  .preview .lines {
+    position: absolute;
+    top: 22px;
+    right: 10px;
+    left: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .preview .lines span {
+    display: block;
+    height: 5px;
+    border-radius: 3px;
+    background: var(--ac, var(--accent));
+    opacity: 0.28;
+  }
+  .preview .lines span:nth-child(2) { width: 72%; }
+  .preview .lines span:nth-child(3) { width: 46%; }
+  .preview .glyph {
+    position: absolute;
+    left: 8px;
+    bottom: -6px;
+    font-size: 2.1rem;
+    opacity: 0.16;
+    line-height: 1;
+  }
+  .card .title { margin-top: 4px; }
   .card .title {
     font-size: 1.15rem;
     font-weight: 600;
@@ -258,7 +322,10 @@
 
   <a class="card" data-key="home-dashboard" data-c="amber" href="https://new-gevahome-dashboard.netlify.app" target="_blank" rel="noopener">
     <div class="family-badge" title="אפליקציית משפחת גבע">ג</div>
-    <div class="icon">🏡</div>
+    <div class="card-top">
+      <div class="icon">🏡</div>
+      <div class="preview"><div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div><div class="lines"><span></span><span></span><span></span></div><span class="glyph">🏡</span></div>
+    </div>
     <div class="title">הבית החדש של עדי וליאור</div>
     <div class="desc">דשבורד ניהול לבית החדש — מסמכים, פרויקטים ומידע שימושי.</div>
     <div class="link">new-gevahome-dashboard.netlify.app</div>
@@ -266,7 +333,10 @@
 
   <a class="card" data-key="osherad" data-c="purple" href="https://osherad.netlify.app" target="_blank" rel="noopener">
     <div class="family-badge" title="אפליקציית משפחת גבע">ג</div>
-    <div class="icon">🛒</div>
+    <div class="card-top">
+      <div class="icon">🛒</div>
+      <div class="preview"><div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div><div class="lines"><span></span><span></span><span></span></div><span class="glyph">🛒</span></div>
+    </div>
     <div class="title">רשימת קניות חכמה – אושר עד</div>
     <div class="desc">רשימת קניות חכמה ונוחה לניהול משותף של הקניות.</div>
     <div class="link">osherad.netlify.app</div>
@@ -274,7 +344,10 @@
 
   <a class="card" data-key="almog-height" data-c="teal" href="https://almog-height.netlify.app" target="_blank" rel="noopener">
     <div class="family-badge" title="אפליקציית משפחת גבע">ג</div>
-    <div class="icon">📏</div>
+    <div class="card-top">
+      <div class="icon">📏</div>
+      <div class="preview"><div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div><div class="lines"><span></span><span></span><span></span></div><span class="glyph">📈</span></div>
+    </div>
     <div class="title">גובה ומשקל אלמוג</div>
     <div class="desc">מעקב אחרי גובה ומשקל אלמוג לאורך זמן, מול עקומות אחוזונים ארציות.</div>
     <div class="link">almog-height.netlify.app</div>
@@ -282,7 +355,10 @@
 
   <a class="card" data-key="almog-summer" data-c="yellow" href="https://almogsummer2026.netlify.app" target="_blank" rel="noopener">
     <div class="family-badge" title="אפליקציית משפחת גבע">ג</div>
-    <div class="icon">☀️</div>
+    <div class="card-top">
+      <div class="icon">☀️</div>
+      <div class="preview"><div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div><div class="lines"><span></span><span></span><span></span></div><span class="glyph">🎈</span></div>
+    </div>
     <div class="title">משחק הקיץ הגדול 2026</div>
     <div class="desc">משחק סקרנות לחופש הגדול — שאלה יומית, חקירה ופרסים לאלמוג.</div>
     <div class="link">almogsummer2026.netlify.app</div>
@@ -290,7 +366,10 @@
 
   <a class="card" data-key="recipes" data-c="coral" href="https://geva-recipes.netlify.app" target="_blank" rel="noopener">
     <div class="family-badge" title="אפליקציית משפחת גבע">ג</div>
-    <div class="icon">📖</div>
+    <div class="card-top">
+      <div class="icon">📖</div>
+      <div class="preview"><div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div><div class="lines"><span></span><span></span><span></span></div><span class="glyph">🍲</span></div>
+    </div>
     <div class="title">ספר המתכונים של גבע</div>
     <div class="desc">כל מתכוני המשפחה במקום אחד, מסודרים לפי קטגוריות — עם הוספה מתמונה, מקובץ Word, או ידנית.</div>
     <div class="link">geva-recipes.netlify.app</div>
@@ -298,7 +377,10 @@
 
   <a class="card" data-key="eilat2026" data-c="sea" href="https://eilat2026.netlify.app" target="_blank" rel="noopener">
     <div class="family-badge" title="אפליקציית משפחת גבע">ג</div>
-    <div class="icon">🌴</div>
+    <div class="card-top">
+      <div class="icon">🌴</div>
+      <div class="preview"><div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div><div class="lines"><span></span><span></span><span></span></div><span class="glyph">🧳</span></div>
+    </div>
     <div class="title">אילת 2026</div>
     <div class="desc">תכנון וארגון הטיול המשפחתי לאילת — ציוד, משימות וקניות לפי נושא.</div>
     <div class="link">eilat2026.netlify.app</div>
