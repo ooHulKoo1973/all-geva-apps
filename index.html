@@ -58,6 +58,20 @@
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 18px;
   }
+  .archive {
+    width: 100%;
+    max-width: 760px;
+    margin-top: 28px;
+  }
+  .archive > summary {
+    cursor: pointer;
+    color: var(--muted);
+    font-size: 15px;
+    padding: 8px 0;
+    user-select: none;
+  }
+  .archive .grid { margin-top: 12px; }
+  .archive .card { opacity: 0.75; }
   .card {
     position: relative;
     display: flex;
@@ -315,17 +329,6 @@
     <div class="link">almog-height.netlify.app</div>
   </a>
 
-  <a class="card" data-key="almog-summer" data-c="yellow" href="https://almogsummer2026.netlify.app" target="_blank" rel="noopener">
-    <div class="family-badge" title="אפליקציית משפחת גבע">ג</div>
-    <div class="card-top">
-      <div class="icon">☀️</div>
-      <div class="preview"><img src="previews/almog-summer.png" alt="" loading="lazy"></div>
-    </div>
-    <div class="title">משחק הקיץ הגדול 2026</div>
-    <div class="desc">משחק סקרנות לחופש הגדול — שאלה יומית, חקירה ופרסים לאלמוג.</div>
-    <div class="link">almogsummer2026.netlify.app</div>
-  </a>
-
   <a class="card" data-key="recipes" data-c="coral" href="https://geva-recipes.netlify.app" target="_blank" rel="noopener">
     <div class="family-badge" title="אפליקציית משפחת גבע">ג</div>
     <div class="card-top">
@@ -337,18 +340,46 @@
     <div class="link">geva-recipes.netlify.app</div>
   </a>
 
-  <a class="card" data-key="eilat2026" data-c="sea" href="https://eilat2026.netlify.app" target="_blank" rel="noopener">
+  <a class="card" data-key="schedule-vav1" data-c="blue" href="https://schedule-vav1.netlify.app" target="_blank" rel="noopener">
     <div class="family-badge" title="אפליקציית משפחת גבע">ג</div>
     <div class="card-top">
-      <div class="icon">🌴</div>
-      <div class="preview"><img src="previews/eilat2026.png" alt="" loading="lazy"></div>
+      <div class="icon">🗓️</div>
     </div>
-    <div class="title">אילת 2026</div>
-    <div class="desc">תכנון וארגון הטיול המשפחתי לאילת — ציוד, משימות וקניות לפי נושא.</div>
-    <div class="link">eilat2026.netlify.app</div>
+    <div class="title">מערכת השעות של אלמוג</div>
+    <div class="desc">מערכת השעות של כיתה ו'1.</div>
+    <div class="link">schedule-vav1.netlify.app</div>
   </a>
 
 </div>
+
+<details class="archive">
+  <summary>🗄️ ארכיון</summary>
+  <div class="grid">
+
+    <a class="card" data-c="sea" href="https://eilat2026.netlify.app" target="_blank" rel="noopener">
+      <div class="family-badge" title="אפליקציית משפחת גבע">ג</div>
+      <div class="card-top">
+        <div class="icon">🌴</div>
+        <div class="preview"><img src="previews/eilat2026.png" alt="" loading="lazy"></div>
+      </div>
+      <div class="title">אילת 2026</div>
+      <div class="desc">תכנון וארגון הטיול המשפחתי לאילת — ציוד, משימות וקניות לפי נושא.</div>
+      <div class="link">eilat2026.netlify.app</div>
+    </a>
+
+    <a class="card" data-c="yellow" href="https://almogsummer2026.netlify.app" target="_blank" rel="noopener">
+      <div class="family-badge" title="אפליקציית משפחת גבע">ג</div>
+      <div class="card-top">
+        <div class="icon">☀️</div>
+        <div class="preview"><img src="previews/almog-summer.png" alt="" loading="lazy"></div>
+      </div>
+      <div class="title">משחק הקיץ הגדול 2026</div>
+      <div class="desc">משחק סקרנות לחופש הגדול — שאלה יומית, חקירה ופרסים לאלמוג.</div>
+      <div class="link">almogsummer2026.netlify.app</div>
+    </a>
+
+  </div>
+</details>
 
 <script>
   (function () {
