@@ -170,12 +170,48 @@
     direction: ltr;
     text-align: right;
   }
-  .drag-hint {
+  .drag-hint, .panel-intro {
     text-align: center;
     color: var(--muted);
     font-size: 0.8rem;
-    margin: -28px 0 24px;
+    margin: 0 0 18px;
   }
+
+  .tabs {
+    display: flex;
+    gap: 4px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 5px;
+    margin: -16px 0 26px;
+    box-shadow: 0 2px 10px var(--shadow);
+  }
+  .tab {
+    border: 0;
+    background: transparent;
+    color: var(--muted);
+    font: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 9px 20px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .tab:hover { color: var(--text); }
+  .tab[aria-selected="true"] {
+    background: var(--accent);
+    color: #fff;
+  }
+  .panel {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .panel[hidden] { display: none; }
+  #panel-public .card { cursor: pointer; }
 
   .card[data-c="blue"]    { --ac: #3B6FE0; --tint: #E8EEFD; }
   .card[data-c="green"]   { --ac: #2E9B5C; --tint: #E3F5EA; }
@@ -275,8 +311,15 @@
 
 <header>
   <h1>🏠 כל האפליקציות של גבע</h1>
-  <p>פורטל אחד לכל האפליקציות המשפחתיות</p>
+  <p>פורטל אחד לכל האפליקציות — המשפחתיות והציבוריות</p>
 </header>
+
+<div class="tabs" role="tablist">
+  <button class="tab" role="tab" data-tab="family" aria-controls="panel-family">🏠 של המשפחה</button>
+  <button class="tab" role="tab" data-tab="public" aria-controls="panel-public">🌍 ציבוריות</button>
+</div>
+
+<section class="panel" id="panel-family" role="tabpanel">
 
 <p class="drag-hint">💡 אפשר לגרור כרטיסייה כדי לשנות את הסדר</p>
 
@@ -412,7 +455,78 @@
   </div>
 </details>
 
+</section>
+
+<section class="panel" id="panel-public" role="tabpanel" hidden>
+
+<p class="panel-intro">🌍 אפליקציות שפתוחות לכל אחד — אפשר לשתף אותן עם חברים</p>
+
+<div class="grid">
+
+  <a class="card" data-c="coral" href="https://trackworm.com" target="_blank" rel="noopener">
+    <div class="card-top">
+      <div class="icon">🎬</div>
+      <div class="preview"><img src="previews/trackworm.png" alt="" loading="lazy"></div>
+    </div>
+    <div class="title">TrackWorm – השיר הזה, באיזה סרט?</div>
+    <div class="desc">מדביקים קישור לשיר (יוטיוב, ספוטיפיי, שזאם) או מקלידים את השם, ומקבלים את הסרטים והסדרות שבהם הוא הושמע.</div>
+    <div class="link">trackworm.com</div>
+  </a>
+
+  <a class="card" data-c="amber" href="https://living-chess-public.netlify.app" target="_blank" rel="noopener">
+    <div class="card-top">
+      <div class="icon">♟️</div>
+      <div class="preview"><img src="previews/living-chess.png" alt="" loading="lazy"></div>
+    </div>
+    <div class="title">Living Chess – שחמט חי</div>
+    <div class="desc">שחמט תלת-ממדי שבו כל כלי הוא דמות פנטזיה חיה, וכל הכאה הופכת לקרב קולנועי.</div>
+    <div class="link">living-chess-public.netlify.app</div>
+  </a>
+
+  <a class="card" data-c="blue" href="https://this-ability.com" target="_blank" rel="noopener">
+    <div class="card-top">
+      <div class="icon">⚡</div>
+      <div class="preview"><img src="previews/this-ability.png" alt="" loading="lazy"></div>
+    </div>
+    <div class="title">This Ability</div>
+    <div class="desc">מוחות שונים, גופים שונים, יכולות שונות. כרגע דף "בקרוב" — האתר עצמו בבנייה.</div>
+    <div class="link">this-ability.com</div>
+  </a>
+
+  <a class="card" data-c="green" href="https://geva-smart-shopping-public.netlify.app" target="_blank" rel="noopener">
+    <div class="card-top">
+      <div class="icon">🧺</div>
+      <div class="preview"><img src="previews/shopping-public.png" alt="" loading="lazy"></div>
+    </div>
+    <div class="title">רשימת קניות לומדת</div>
+    <div class="desc">רשימת קניות חכמה שכל משפחה יכולה להירשם אליה — רשימה נפרדת לכל סופר, והיא לומדת לבד לאיזו מחלקה שייך כל פריט.</div>
+    <div class="link">geva-smart-shopping-public.netlify.app</div>
+  </a>
+
+</div>
+
+</section>
+
 <script>
+  // Tabs: the public tab has its own link (#public) so it can be shared directly
+  (function () {
+    var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
+    function show(name) {
+      tabs.forEach(function (t) {
+        var on = t.dataset.tab === name;
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+        document.getElementById('panel-' + t.dataset.tab).hidden = !on;
+      });
+    }
+    tabs.forEach(function (t) {
+      t.addEventListener('click', function () {
+        show(t.dataset.tab);
+        history.replaceState(null, '', t.dataset.tab === 'public' ? '#public' : location.pathname + location.search);
+      });
+    });
+    show(location.hash === '#public' ? 'public' : 'family');
+  })();
+
   (function () {
     var STORAGE_KEY = 'geva-apps-order-v2'; // v2: bumped when the calendar+tasks cards merged into one, so old saved orders (with stale keys) don't push the new hero card to the bottom
     var grid = document.getElementById('appsGrid');
@@ -488,7 +602,7 @@
 </script>
 
 <footer>
-  עודכן לאחרונה: 29.09.2026 &middot; all-geva-apps
+  עודכן לאחרונה: 06.10.2026 &middot; all-geva-apps
 </footer>
 
 <div class="music-tray">
