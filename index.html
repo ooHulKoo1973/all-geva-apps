@@ -176,6 +176,7 @@
     font-size: 0.8rem;
     margin: 0 0 18px;
   }
+  .panel-intro + .drag-hint { margin-top: -12px; }
 
   .tabs {
     display: flex;
@@ -211,7 +212,6 @@
     align-items: center;
   }
   .panel[hidden] { display: none; }
-  #panel-public .card { cursor: pointer; }
 
   .card[data-c="blue"]    { --ac: #3B6FE0; --tint: #E8EEFD; }
   .card[data-c="green"]   { --ac: #2E9B5C; --tint: #E3F5EA; }
@@ -460,10 +460,11 @@
 <section class="panel" id="panel-public" role="tabpanel" hidden>
 
 <p class="panel-intro">🌍 אפליקציות שפתוחות לכל אחד — אפשר לשתף אותן עם חברים</p>
+<p class="drag-hint">💡 אפשר לגרור כרטיסייה כדי לשנות את הסדר</p>
 
-<div class="grid">
+<div class="grid" id="publicGrid">
 
-  <a class="card" data-c="coral" href="https://trackworm.com" target="_blank" rel="noopener">
+  <a class="card" data-key="trackworm" data-c="coral" href="https://trackworm.com" target="_blank" rel="noopener">
     <div class="card-top">
       <div class="icon">🎬</div>
       <div class="preview"><img src="previews/trackworm.png" alt="" loading="lazy"></div>
@@ -473,7 +474,7 @@
     <div class="link">trackworm.com</div>
   </a>
 
-  <a class="card" data-c="amber" href="https://living-chess-public.netlify.app" target="_blank" rel="noopener">
+  <a class="card" data-key="living-chess" data-c="amber" href="https://living-chess-public.netlify.app" target="_blank" rel="noopener">
     <div class="card-top">
       <div class="icon">♟️</div>
       <div class="preview"><img src="previews/living-chess.png" alt="" loading="lazy"></div>
@@ -483,7 +484,7 @@
     <div class="link">living-chess-public.netlify.app</div>
   </a>
 
-  <a class="card" data-c="amber" href="https://living-chess-public.netlify.app/download/" target="_blank" rel="noopener">
+  <a class="card" data-key="chess-download" data-c="amber" href="https://living-chess-public.netlify.app/download/" target="_blank" rel="noopener">
     <div class="card-top">
       <div class="icon">💾</div>
       <div class="preview"><img src="previews/chess-download.png" alt="" loading="lazy"></div>
@@ -493,7 +494,7 @@
     <div class="link">living-chess-public.netlify.app/download</div>
   </a>
 
-  <a class="card" data-c="yellow" href="https://roomforge-public.netlify.app" target="_blank" rel="noopener">
+  <a class="card" data-key="roomforge" data-c="yellow" href="https://roomforge-public.netlify.app" target="_blank" rel="noopener">
     <div class="card-top">
       <div class="icon">🪖</div>
       <div class="preview"><img src="previews/roomforge.png" alt="" loading="lazy"></div>
@@ -503,7 +504,7 @@
     <div class="link">roomforge-public.netlify.app</div>
   </a>
 
-  <a class="card" data-c="yellow" href="https://roomforge-public.netlify.app/feedback" target="_blank" rel="noopener">
+  <a class="card" data-key="roomforge-feedback" data-c="yellow" href="https://roomforge-public.netlify.app/feedback" target="_blank" rel="noopener">
     <div class="card-top">
       <div class="icon">📝</div>
       <div class="preview"><img src="previews/roomforge-feedback.png" alt="" loading="lazy"></div>
@@ -513,7 +514,7 @@
     <div class="link">roomforge-public.netlify.app/feedback</div>
   </a>
 
-  <a class="card" data-c="blue" href="https://this-ability.com" target="_blank" rel="noopener">
+  <a class="card" data-key="this-ability" data-c="blue" href="https://this-ability.com" target="_blank" rel="noopener">
     <div class="card-top">
       <div class="icon">⚡</div>
       <div class="preview"><img src="previews/this-ability.png" alt="" loading="lazy"></div>
@@ -523,7 +524,7 @@
     <div class="link">this-ability.com</div>
   </a>
 
-  <a class="card" data-c="green" href="https://geva-smart-shopping-public.netlify.app" target="_blank" rel="noopener">
+  <a class="card" data-key="shopping-public" data-c="green" href="https://geva-smart-shopping-public.netlify.app" target="_blank" rel="noopener">
     <div class="card-top">
       <div class="icon">🧺</div>
       <div class="preview"><img src="previews/shopping-public.png" alt="" loading="lazy"></div>
@@ -557,9 +558,8 @@
     show(location.hash === '#public' ? 'public' : 'family');
   })();
 
-  (function () {
-    var STORAGE_KEY = 'geva-apps-order-v2'; // v2: bumped when the calendar+tasks cards merged into one, so old saved orders (with stale keys) don't push the new hero card to the bottom
-    var grid = document.getElementById('appsGrid');
+  // Drag-to-reorder: each tab keeps its own saved order in this browser
+  function makeSortable(grid, STORAGE_KEY) {
     var cards = Array.prototype.slice.call(grid.querySelectorAll('.card'));
 
     function applyStoredOrder() {
@@ -628,7 +628,10 @@
     });
 
     cards.forEach(function (c) { c.setAttribute('draggable', 'true'); });
-  })();
+  }
+
+  makeSortable(document.getElementById('appsGrid'), 'geva-apps-order-v2'); // v2: bumped when the calendar+tasks cards merged into one, so old saved orders (with stale keys) don't push the new hero card to the bottom
+  makeSortable(document.getElementById('publicGrid'), 'geva-public-apps-order-v1');
 </script>
 
 <footer>
