@@ -1,2 +1,4 @@
 [build]
   publish = "."
+  # Skip a publish when nothing the page uses changed (15 credits each; CLAUDE.md, 2026-10-17)
+  ignore = "[ \"$CACHED_COMMIT_REF\" != \"$COMMIT_REF\" ] && git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF -- index.html previews netlify.toml"
